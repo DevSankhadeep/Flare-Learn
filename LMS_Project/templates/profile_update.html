@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Update Profile{% endblock %}
+{% block content %}
+<h2>Update Profile</h2>
+<form method="post" enctype="multipart/form-data" class="mt-3">
+    {% csrf_token %}
+    {% include "includes/form.html" with form=p_form %}
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+{% endblock %}

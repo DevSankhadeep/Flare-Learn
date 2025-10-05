@@ -1,0 +1,143 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}EduHub{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Header / Navbar -->
+  <header class="bg-indigo-600 text-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="{% url 'home' %}" class="text-2xl font-bold text-yellow-300">EduHub</a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex space-x-6 items-center">
+        <a href="{% url 'home' %}" class="hover:text-yellow-300">Home</a>
+        <a href="{% url 'about' %}" class="hover:text-yellow-300">About</a>
+        <a href="{% url 'contact' %}" class="hover:text-yellow-300">Contact</a>
+
+        <!-- Courses Dropdown -->
+        <div class="relative group">
+          <button class="hover:text-yellow-300 focus:outline-none">Courses</button>
+          <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            {% for category in nav_categories %}
+              <div class="px-4 py-2 border-b border-gray-200">
+                <span class="font-semibold text-gray-800">{{ category.name }}</span>
+                <div class="mt-1 ml-3 space-y-1">
+                  {% for course in category.courses.all %}
+                    <a href="{% url 'course_detail' course.slug %}"
+                       class="block text-sm text-gray-600 hover:text-indigo-600 hover:underline">
+                      {{ course.title }}
+                    </a>
+                  {% empty %}
+                    <p class="text-xs text-gray-400">No courses yet</p>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        {% if user.is_authenticated %}
+          <!-- Dropdown for User -->
+          <div class="relative group">
+            <button class="text-yellow-300 font-semibold focus:outline-none">
+              Hi, {{ user.username }}
+            </button>
+            <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <a href="{% url 'profile_update' %}" class="block px-4 py-2 text-gray-700 hover:bg-indigo-100">Profile</a>
+              <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-indigo-100">
+                  Logout
+                </button>
+              </form>
+            </div>
+          </div>
+        {% else %}
+          <a href="{% url 'login' %}" class="hover:text-yellow-300">Log In</a>
+          <a href="{% url 'signup' %}" class="hover:text-yellow-300">Sign Up</a>
+        {% endif %}
+      </nav>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button aria-label="Toggle menu" id="menu-btn" class="focus:outline-none">
+          <svg class="w-8 h-8 text-yellow-300" fill="none" stroke="currentColor" stroke-width="2" 
+               stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <nav id="mobile-menu" class="hidden md:hidden bg-indigo-700 border-t border-indigo-500">
+      <a href="{% url 'home' %}" class="block px-4 py-3 border-b hover:bg-indigo-500">Home</a>
+      <a href="{% url 'about' %}" class="block px-4 py-3 border-b hover:bg-indigo-500">About</a>
+      <a href="{% url 'contact' %}" class="block px-4 py-3 border-b hover:bg-indigo-500">Contact</a>
+
+      <!-- Mobile Courses Dropdown -->
+      <div class="px-4 py-3 border-b">
+        <span class="block text-yellow-300 font-semibold">Courses</span>
+        {% for category in nav_categories %}
+          <div class="mt-2">
+            <p class="text-sm text-white font-medium">{{ category.name }}</p>
+            <div class="ml-3 space-y-1">
+              {% for course in category.courses.all %}
+                <a href="{% url 'course_detail' course.slug %}" 
+                   class="block text-xs text-indigo-200 hover:text-yellow-300">
+                  {{ course.title }}
+                </a>
+              {% empty %}
+                <p class="text-xs text-gray-400">No courses yet</p>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="flex flex-col px-4 py-4 space-y-2">
+        {% if user.is_authenticated %}
+          <a href="{% url 'profile_update' %}" class="px-4 py-2 text-yellow-300 border rounded hover:bg-yellow-300 hover:text-indigo-900">Profile</a>
+          <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="px-4 py-2 bg-yellow-300 text-indigo-900 rounded hover:bg-yellow-400 w-full text-left">
+              Logout
+            </button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="px-4 py-2 text-yellow-300 border rounded hover:bg-yellow-300 hover:text-indigo-900">Log In</a>
+          <a href="{% url 'signup' %}" class="px-4 py-2 bg-yellow-300 text-indigo-900 rounded hover:bg-yellow-400">Sign Up</a>
+        {% endif %}
+      </div>
+    </nav>
+  </header>
+
+  <!-- Page content -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-indigo-900 text-indigo-200 py-12 mt-12">
+    <div class="container mx-auto px-6 text-center">
+      <p class="mt-8 text-sm text-indigo-400">&copy; 2025 EduHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Mobile menu toggle -->
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

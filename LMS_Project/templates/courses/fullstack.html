@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }} | EduHub{% endblock %}
+
+{% block content %}
+  <!-- Hero Section -->
+  <section class="course-hero bg-gray-100 py-12">
+    <div class="container mx-auto flex flex-col md:flex-row items-center px-6">
+
+      <!-- Left -->
+      <div class="md:w-1/2 md:pr-8 mb-8 md:mb-0">
+        <h1 class="text-3xl font-bold mb-4">{{ course.title }}</h1>
+        <p class="mb-4 text-gray-700">{{ course.description }}</p>
+
+        <div class="flex flex-wrap gap-4 text-sm text-gray-600 mb-6">
+          <span>⭐ 4.8 (12,543 ratings)</span>
+          <span>👨‍🎓 50,000+ students</span>
+          <span>⏰ {{ course.duration }}</span>
+        </div>
+
+        <button id="enrollBtn"
+          class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg shadow-md">
+          Enroll Now - ${{ course.price }}
+        </button>
+      </div>
+
+      <!-- Right -->
+      <div class="flex-1 max-w-lg">
+  <img src="https://cdni.iconscout.com/illustration/premium/thumb/full-stack-developer-illustration-svg-download-png-4051527.png" 
+       alt="Full Stack Developer Illustration"
+       class="rounded-lg shadow-lg" />
+</div>
+
+  </section>
+
+  <!-- What you'll learn -->
+  <section class="py-12">
+    <div class="container mx-auto px-6">
+      <h2 class="text-2xl font-semibold mb-6">What you'll learn</h2>
+      <ul class="list-disc list-inside space-y-2 text-gray-700">
+        <li>Build responsive websites with HTML & CSS</li>
+        <li>Develop interactive apps using JavaScript & React</li>
+        <li>Create APIs with Node.js & Express</li>
+        <li>Work with databases like MongoDB</li>
+        <li>Deploy apps to the cloud</li>
+        <li>Version control with Git & GitHub</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Instructor Section -->
+  <section class="bg-gray-50 py-12">
+    <div class="container mx-auto flex flex-col md:flex-row items-center px-6">
+      
+      <!-- Instructor Image -->
+      <img src="https://source.unsplash.com/150x150/?teacher" 
+           alt="Instructor"
+           class="rounded-full w-32 h-32 mb-6 md:mb-0 md:mr-6 shadow-lg border-2 border-indigo-500" />
+      
+      <!-- Instructor Info -->
+      <div>
+        <h3 class="text-xl font-semibold mb-2">Meet Your Instructor</h3>
+        <p class="text-gray-700 leading-relaxed">
+          <strong>{{ course.author.username }}</strong> is a senior fullstack engineer 
+          with 10+ years of experience in building scalable web applications.  
+          He has taught <span class="font-semibold">100k+ students worldwide</span> 
+          through hands-on, project-based learning.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Payment Modal -->
+  <div id="paymentModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+      <button id="closeModal" class="absolute top-2 right-3 text-gray-600 text-xl">&times;</button>
+      <h2 class="text-xl font-bold mb-4">Checkout</h2>
+      <p>Course: <strong>{{ course.title }}</strong></p>
+      <p class="mb-4">Price: <strong>${{ course.price }}</strong></p>
+      <form id="paymentForm" class="space-y-3">
+        <input type="text" placeholder="Card Number" required class="w-full p-2 border rounded" />
+        <input type="text" placeholder="MM/YY" required class="w-full p-2 border rounded" />
+        <input type="text" placeholder="CVV" required class="w-full p-2 border rounded" />
+        <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full">
+          Pay Now
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal JS -->
+  <script>
+    const modal = document.getElementById("paymentModal");
+    const enrollBtn = document.getElementById("enrollBtn");
+    const closeModal = document.getElementById("closeModal");
+    const paymentForm = document.getElementById("paymentForm");
+
+    enrollBtn.onclick = () => modal.classList.remove("hidden");
+    closeModal.onclick = () => modal.classList.add("hidden");
+    window.onclick = (e) => { if (e.target === modal) modal.classList.add("hidden"); };
+
+    paymentForm.onsubmit = (e) => {
+      e.preventDefault();
+      alert("Payment successful! 🎉 You are now enrolled in " + "{{ course.title }}");
+      modal.classList.add("hidden");
+    };
+  </script>
+{% endblock %}

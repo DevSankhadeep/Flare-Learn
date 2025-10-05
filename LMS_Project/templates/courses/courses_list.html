@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}All Courses - EduHub{% endblock %}
+
+{% block content %}
+<section id="courses" class="container mx-auto px-6 py-10">
+  <h2 class="text-3xl font-bold text-center mb-6">All Courses</h2>
+
+  <!-- ✅ Filter Info + Counts -->
+  <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
+    <div class="text-gray-600">
+      <span class="mr-4">📚 Total: {{ courses|length }}</span>
+      <span class="mr-4 text-green-600">Free: {{ free_count }}</span>
+      <span class="text-orange-600">Paid: {{ paid_count }}</span>
+    </div>
+
+    <!-- ✅ Filters -->
+    <form method="get" class="flex flex-wrap items-center gap-4">
+      <!-- Filter by type -->
+      <select name="type" class="border rounded px-3 py-1 text-sm">
+        <option value="">All</option>
+        <option value="free" {% if request.GET.type == "free" %}selected{% endif %}>Free</option>
+        <option value="paid" {% if request.GET.type == "paid" %}selected{% endif %}>Paid</option>
+      </select>
+
+      <!-- Filter by category -->
+      <select name="category" class="border rounded px-3 py-1 text-sm">
+        <option value="">All Categories</option>
+        {% for category in categories %}
+          <option value="{{ category.slug }}" {% if request.GET.category == category.slug %}selected{% endif %}>{{ category.name }}</option>
+        {% endfor %}
+      </select>
+
+      <!-- Filter button -->
+      <button type="submit" class="bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700 text-sm">
+        Apply Filters
+      </button>
+    </form>
+  </div>
+
+  <!-- ✅ Grid -->
+  <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+    {% for course in courses %}
+      <a href="{% url 'course_detail' course.slug %}" class="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow">
+          <!-- Course Image -->
+          {% if course.image %}
+            <img src="{{ course.image.url }}" alt="{{ course.title }}" class="w-full h-48 object-cover" />
+          {% else %}
+            <img src="https://via.placeholder.com/800x400?text=No+Image" class="w-full h-48 object-cover" />
+          {% endif %}
+
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">{{ course.title }}</h3>
+            <div class="flex justify-between text-sm text-gray-600 mb-4">
+              <span>{{ course.lessons_count }} Lessons</span>
+              <span>{{ course.duration }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="{% if course.price == 0 %}text-green-600{% else %}text-indigo-600{% endif %} font-bold text-lg">
+                {% if course.price == 0 %}Free{% else %}${{ course.price }}{% endif %}
+              </div>
+              <div class="flex items-center space-x-1 text-yellow-400">
+                {% for i in "12345" %}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 
+                    2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 
+                    1.118l-3.566-2.59a1 1 0 00-1.176 
+                    0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 
+                    1 0 00-.364-1.118L2.707 
+                    9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 
+                    1 0 00.95-.69l1.357-4.182z"/>
+                  </svg>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    {% empty %}
+      <p class="text-gray-600 col-span-full">No courses found matching the selected filters.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

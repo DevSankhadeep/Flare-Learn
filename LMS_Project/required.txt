@@ -1,0 +1,4 @@
+required 
+python 3.11.4
+pip install Django
+pip install pillow

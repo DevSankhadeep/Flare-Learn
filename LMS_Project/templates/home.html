@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block title %}Home | EduHub{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="bg-indigo-600 text-white">
+  <div class="container mx-auto flex flex-col-reverse md:flex-row items-center px-6 py-20 md:py-32 gap-12">
+    <div class="flex-1 text-center md:text-left">
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+        Learn Anytime, Anywhere with <br />
+        <span class="text-yellow-300">EduHub</span>
+      </h1>
+      <p class="mb-8 text-lg md:text-xl max-w-md mx-auto md:mx-0">
+        Access top-quality courses from expert instructors and advance your career.
+      </p>
+      <div class="flex justify-center md:justify-start gap-4">
+        <a href="{% url 'course_list' %}" class="px-6 py-3 bg-yellow-400 text-indigo-900 font-semibold rounded hover:bg-yellow-300 transition">Browse Courses</a>
+       {% if not request.user.is_authenticated %}
+        <a href="{% url 'signup' %}" class="px-6 py-3 border border-yellow-400 text-yellow-400 font-semibold rounded hover:bg-yellow-400 hover:text-indigo-900 transition">Get Started</a>
+      {% endif %}
+      </div>
+    </div>
+    <div class="flex-1 max-w-lg">
+      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="Learning Illustration" class="rounded-lg shadow-lg" />
+    </div>
+  </div>
+</section>
+
+<!-- Featured Courses -->
+<section id="courses" class="container mx-auto px-6 py-20">
+  <h2 class="text-3xl font-bold text-center mb-12">Featured Courses</h2>
+  <div class="grid gap-10 md:grid-cols-3">
+
+    <!-- course card 1 -->
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow">
+      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" class="w-full h-48 object-cover" />
+      <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2">Introduction to UI Design</h3>
+        <div class="flex justify-between text-sm text-gray-600 mb-4">
+          <span>15 Lessons</span>
+          <span>5h 30m</span>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <!-- Price -->
+          <div class="text-indigo-600 font-bold text-lg">$299</div>
+          <!-- Rating -->
+          <div class="flex items-center space-x-1 text-yellow-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- course card 2 -->
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow">
+      <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" class="w-full h-48 object-cover" />
+      <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2">Advanced React Techniques</h3>
+        <div class="flex justify-between text-sm text-gray-600 mb-4">
+          <span>20 Lessons</span>
+          <span>7h 15m</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <div class="text-indigo-600 font-bold text-lg">$79</div>
+          <!-- Rating (can repeat stars like above or adjust as needed) -->
+          <div class="flex items-center space-x-1 text-yellow-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- course card 3 -->
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow">
+      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" class="w-full h-48 object-cover" />
+      <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2">Fullstack Web Development</h3>
+        <div class="flex justify-between text-sm text-gray-600 mb-4">
+          <span>25 Lessons</span>
+          <span>12h 30m</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <div class="text-indigo-600 font-bold text-lg">$99</div>
+          <!-- Rating -->
+          <div class="flex items-center space-x-1 text-yellow-400">
+            <!-- 5 full stars -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.357 4.182a1 1 0 00.95.69h4.398c.969 0 1.371 1.24.588 1.81l-3.566 2.59a1 1 0 00-.364 1.118l1.357 4.182c.3.921-.755 1.688-1.54 1.118l-3.566-2.59a1 1 0 00-1.176 0l-3.566 2.59c-.785.57-1.84-.197-1.54-1.118l1.357-4.182a1 1 0 00-.364-1.118L2.707 9.61c-.783-.57-.38-1.81.588-1.81h4.398a1 1 0 00.95-.69l1.357-4.182z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mt-12 flex justify-center">
+    <a href="{% url 'course_list' %}" class="inline-block px-6 py-3 bg-indigo-600 text-white font-semibold rounded hover:bg-indigo-700 transition">View All Courses</a>
+  </div>
+</section>
+
+<!-- Why Choose Us -->
+<section id="why-us" class="bg-indigo-50 py-20">
+  <div class="container mx-auto flex flex-col md:flex-row items-center px-6 gap-12">
+    <div class="flex-1 max-w-lg">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" class="rounded-lg shadow-lg" />
+    </div>
+    <div class="flex-1 max-w-lg">
+      <h2 class="text-3xl font-bold mb-6">Why Choose EduHub?</h2>
+      <p class="mb-4 text-lg leading-relaxed">EduHub provides top-notch learning experiences with expert instructors, flexible schedules, and a supportive community.</p>
+      <ul class="list-disc list-inside space-y-2 text-gray-700">
+        <li>High-quality video lessons</li>
+        <li>Interactive quizzes and assignments</li>
+        <li>Access on all devices</li>
+        <li>Personalized learning paths</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- (Testimonials, News, Features, etc. go here) -->
+
+{% endblock %}
